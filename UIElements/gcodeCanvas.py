@@ -15,6 +15,7 @@ from UIElements.viewMenu                     import ViewMenu
 from kivy.graphics.transformation            import Matrix
 from kivy.core.window                        import Window
 from UIElements.modernMenu                   import ModernMenu
+from UIElements.frontPage                    import FrontPage
 
 import re
 import math
@@ -36,7 +37,7 @@ class GcodeCanvas(FloatLayout, MakesmithInitFuncs):
     
     prependString = "G01 "
     
-    
+#     fp = FrontPage( name='FrontPage')
     
     def initialize(self):
         
@@ -56,6 +57,8 @@ class GcodeCanvas(FloatLayout, MakesmithInitFuncs):
         global_variables._keyboard.bind(on_key_down=self._on_keyboard_down)
         
         self.centerCanvasAndReloadGcode()
+        
+#         fp = FrontPage(self.data, name='FrontPage')
     
     def addPoint(self, x, y):
         '''
@@ -91,6 +94,22 @@ class GcodeCanvas(FloatLayout, MakesmithInitFuncs):
         elif keycode[1] == self.data.config.get('Ground Control Settings', 'zoomOut'):
             mat = Matrix().scale(1+scaleFactor, 1+scaleFactor, 1)
             self.scatterInstance.apply_transform(mat, anchor)
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == 'left':
+            print 'left key'
+            print ('mods %r' % modifiers)
+            FrontPage(self.data, name='FrontPage').left()
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == 'right':
+            if '%r' % modifiers == 'shift':
+                print 'shift right key'
+            else:
+                print 'right key'
+                FrontPage(self.data, name='FrontPage').right()
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == 'shift':
+            print 'shift key'
+#             FrontPage(self.data, name='FrontPage').right()
             return True # we handled this key - don't pass to other callbacks
         else:
             return False # we didn't handle this key - let next callback handle it
