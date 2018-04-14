@@ -395,6 +395,83 @@ settings = {
                 "desc": "Valid file extensions for Ground Control to open. Comma separated list.",
                 "key": "validExtensions",
                 "default": ".nc, .ngc, .text, .gcode"
+            },
+            {
+                "type": "string",
+                "title": "Up Arrow",
+                "desc": "Pressing this key will move the sled up. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "upArrow",
+                "default": "numpad8"
+            },
+            {
+                "type": "string",
+                "title": "Up Right Arrow",
+                "desc": "Pressing this key will move the sled up and to the right. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "upRightArrow",
+                "default": "numpad9"
+            },
+            {
+                "type": "string",
+                "title": "Right Arrow",
+                "desc": "Pressing this key will move the sled to the right. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "rightArrow",
+                "default": "numpad6"
+            },
+            {
+                "type": "string",
+                "title": "Down Right Arrow",
+                "desc": "Pressing this key will move the sled down and to the right. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "downRightArrow",
+                "default": "numpad3"
+            },
+            {
+                "type": "string",
+                "title": "Down Arrow",
+                "desc": "Pressing this key will move the sled down. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "downArrow",
+                "default": "numpad2"
+            },
+            {
+                "type": "string",
+                "title": "Down Left Arrow",
+                "desc": "Pressing this key will move the sled down and to the left. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "downLeftArrow",
+                "default": "numpad1"
+            },
+            {
+                "type": "string",
+                "title": "Left Arrow",
+                "desc": "Pressing this key will move the sled to the left. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "leftArrow",
+                "default": "numpad4"
+            },
+            {
+                "type": "string",
+                "title": "Up Left Arrow",
+                "desc": "Pressing this key will move the sled up and to the left. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "upLeftArrow",
+                "default": "numpad7"
+            },
+            {
+                "type": "string",
+                "title": "Home",
+                "desc": "Pressing this key will move the sled to the Home position. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "homeBtn",
+                "default": "numpad5"
+            },
+            {
+                "type": "string",
+                "title": "Hold",
+                "desc": "Pressing this key will pause after the current movement finishes. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "holdBtn",
+                "default": "numpad0"
+            },
+            {
+                "type": "string",
+                "title": "Stop",
+                "desc": "Pressing this key will stop movement immediately and cancel the gcode file. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "stopBtn",
+                "default": "numpadenter"
             }
         ],
     "Computed Settings": #These are setting calculated from the user inputs on other settings, they are not direclty seen by the user

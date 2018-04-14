@@ -86,7 +86,9 @@ class GcodeCanvas(FloatLayout, MakesmithInitFuncs):
         '''
         scaleFactor = .03
         anchor = (0,0)
-        
+        print keycode[1]
+        print modifiers
+        print text
         if keycode[1] == self.data.config.get('Ground Control Settings', 'zoomIn'):
             mat = Matrix().scale(1-scaleFactor, 1-scaleFactor, 1)
             self.scatterInstance.apply_transform(mat, anchor)
@@ -95,21 +97,35 @@ class GcodeCanvas(FloatLayout, MakesmithInitFuncs):
             mat = Matrix().scale(1+scaleFactor, 1+scaleFactor, 1)
             self.scatterInstance.apply_transform(mat, anchor)
             return True # we handled this key - don't pass to other callbacks
-        elif keycode[1] == 'left':
-            print 'left key'
-            print ('mods %r' % modifiers)
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'upArrow'):
+            FrontPage(self.data, name='FrontPage').up()
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'upRightArrow'):
+            FrontPage(self.data, name='FrontPage').upRight()
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'rightArrow'):
+            FrontPage(self.data, name='FrontPage').right()
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'downRightArrow'):
+            FrontPage(self.data, name='FrontPage').downRight()
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'downArrow'):
+            FrontPage(self.data, name='FrontPage').down()
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'downLeftArrow'):
+            FrontPage(self.data, name='FrontPage').downLeft()
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'leftArrow'):
             FrontPage(self.data, name='FrontPage').left()
             return True # we handled this key - don't pass to other callbacks
-        elif keycode[1] == 'right':
-            if '%r' % modifiers == 'shift':
-                print 'shift right key'
-            else:
-                print 'right key'
-                FrontPage(self.data, name='FrontPage').right()
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'upLeftArrow'):
+            FrontPage(self.data, name='FrontPage').upLeft()
             return True # we handled this key - don't pass to other callbacks
-        elif keycode[1] == 'shift':
-            print 'shift key'
-#             FrontPage(self.data, name='FrontPage').right()
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'homeBtn'):
+            FrontPage(self.data, name='FrontPage').home()
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'stopBtn'):
+            FrontPage(self.data, name='FrontPage').stopRun()
             return True # we handled this key - don't pass to other callbacks
         else:
             return False # we didn't handle this key - let next callback handle it
