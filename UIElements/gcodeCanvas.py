@@ -291,24 +291,37 @@ class GcodeCanvas(FloatLayout, MakesmithInitFuncs):
             yTarget = self.yPosition
             iTarget = 0
             jTarget = 0
-            
+#             rounding = int(self.data.config.get('Ground Control Settings', 'rounding'))
+            if self.data.config.get('Advanced Settings', 'truncate') != '0':
+                rounding = int(self.data.config.get('Advanced Settings', 'digits'))
+            else:
+                rounding = 5
+            print "Rounding to %d digits" % rounding
+            fmtX = "%0%.%sf" % rounding # use rounding setting to choose the number of digits after the decimal place
             x = re.search("X(?=.)(([ ]*)?[+-]?([0-9]*)(\.([0-9]+))?)", gCodeLine)
             if x:
-                xTarget = float(x.groups()[0])*self.canvasScaleFactor
+                xTarget = round(float(x.groups()[0])*self.canvasScaleFactor,rounding)
             y = re.search("Y(?=.)(([ ]*)?[+-]?([0-9]*)(\.([0-9]+))?)", gCodeLine)
             if y:
-                yTarget = float(y.groups()[0])*self.canvasScaleFactor
+                yTarget = round(float(y.groups()[0])*self.canvasScaleFactor,rounding)
             i = re.search("I(?=.)(([ ]*)?[+-]?([0-9]*)(\.([0-9]+))?)", gCodeLine)
             if i:
-                iTarget = float(i.groups()[0])*self.canvasScaleFactor
+                iTarget = round(float(i.groups()[0])*self.canvasScaleFactor,rounding)
             j = re.search("J(?=.)(([ ]*)?[+-]?([0-9]*)(\.([0-9]+))?)", gCodeLine)
             if j:
-                jTarget = float(j.groups()[0])*self.canvasScaleFactor
+                jTarget = round(float(j.groups()[0])*self.canvasScaleFactor,rounding)
             
-            radius = math.sqrt(iTarget**2 + jTarget**2)
-            centerX = self.xPosition + iTarget
-            centerY = self.yPosition + jTarget
-            
+            centerX = round((self.xPosition + iTarget),rounding)
+            centerY = round((self.yPosition + jTarget),rounding)
+            radius      = round(math.sqrt(iTarget**2 + jTarget**2),rounding)
+#             startRadius = round(float(fmtX % (math.sqrt((self.xPosition - centerX)**2 + (self.yPosition - centerY)**2))),rounding)
+            endRadius   = round(float(fmtX % (math.sqrt((xTarget - centerX)**2 + (yTarget - centerY)**2))),rounding)
+            if abs(radius) - abs(endRadius) >= 0.01:
+#                 print "Invalid relative-mode G2/G3 command in line %s\r\n   %s\r\n   radius " % (self.lineNumber, gCodeLine) + (fmtX % radius) +" startRadius " + (fmtX % startRadius) + " endRadius " + (fmtX % endRadius)
+                print "Invalid relative-mode G2/G3 command in line %s\r\n   %s\r\n   error " % (self.lineNumber, gCodeLine) + (fmtX % abs(radius - endRadius)) + "  radius " + (fmtX % radius) + "  endRadius " + (fmtX % endRadius)
+                gcodeError = True
+            else:
+                gcodeError = False
             angle1 = math.atan2(self.yPosition - centerY, self.xPosition - centerX)
             angle2 = math.atan2(yTarget - centerY, xTarget - centerX)
             
