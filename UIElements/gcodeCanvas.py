@@ -99,6 +99,12 @@ class GcodeCanvas(FloatLayout, MakesmithInitFuncs):
             mat = Matrix().scale(1+scaleFactor, 1+scaleFactor, 1)
             self.scatterInstance.apply_transform(mat, anchor)
             return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'fakeServo_On'):
+            self.data.gcode_queue.put("B99 ON \n")
+            return True # we handled this key - don't pass to other callbacks
+        elif keycode[1] == self.data.config.get('Ground Control Settings', 'fakeServo_Off'):
+            self.data.gcode_queue.put("B99 OFF \n")
+            return True # we handled this key - don't pass to other callbacks
         else:
             return False # we didn't handle this key - let next callback handle it
 

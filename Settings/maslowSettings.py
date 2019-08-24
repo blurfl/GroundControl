@@ -484,6 +484,20 @@ settings = {
                 "desc": "Zoom scale for 'Reset View' command.",
                 "key": "viewScale",
                 "default": ".45"
+            },
+            {
+                "type": "string",
+                "title": "FAKE_SERVO On",
+                "desc": "Pressing this key will turn FAKE_SERVO on. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "fakeServo_On",
+                "default": "]"
+            },
+            {
+                "type": "string",
+                "title": "FAKE_SERVO Off",
+                "desc": "Pressing this key will turn FAKE_SERVO off. Note combinations of keys like \'shift\' + \'=\' may not work as expected. Program must be restarted to take effect.",
+                "key": "fakeServo_Off",
+                "default": "["
             }
         ],
     "Computed Settings": #These are setting calculated from the user inputs on other settings, they are not directly seen by the user
